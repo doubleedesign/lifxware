@@ -1,4 +1,4 @@
-import { EventEmitter } from 'eventemitter3';
+/// <reference types="node" />
 import { ColorHSBK } from './packets/color/colorHSBK';
 import { Tag } from './packets/tag/tag';
 import { TagLabels } from './packets/tagLabel/tagLabel';
@@ -7,6 +7,7 @@ import { WaveformRequest } from './packets/waveform/waveform';
 import { Client } from './client';
 import { SetTileState64Request, SetUserPositionRequest } from './packets/tiles/tiles';
 import { Group } from './packets/group/group';
+import EventEmitter from 'events';
 export declare enum LightEvents {
     CONECTIVITY = "connectivity",
     LABEL = "label",

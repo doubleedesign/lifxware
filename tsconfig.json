@@ -1,14 +1,19 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2015",
+		"module": "esnext",
+		"target": "esnext",
 		"declaration": true,
 		"declarationMap": true,
 		"inlineSourceMap": true,
 		"alwaysStrict": true,
-		"outDir": "dist"
+		"outDir": "dist",
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"paths": {
+			"from-exponential": ["./node_modules/from-exponential"]
+		}
 	},
 	"include": ["src"],
 	"exclude": ["node_modules"],
-	"types": ["@types/cli-table", "@types/lodash", "@types/node"]
+	"types": ["@types/lodash", "@types/node"]
 }

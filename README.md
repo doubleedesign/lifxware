@@ -1,8 +1,15 @@
 # LIFXware
 
-A Typescript implementation of the LIFX protocol.
+A Typescript implementation of the LIFX protocol forked from [Jorge Claro's lifxware package](https://github.com/jorgeclaro).
 
-This library is not, in any way, affiliated or related to LiFi Labs, Inc.. Use it at your own risk.
+Differences from v0.1.20 of the original: 
+
+- Added `getGroup` method to get which group a given light is in
+- Updated dependencies
+- Compiled as ES module instead of CommonJS
+- Removed the CLI script, purely to simplify the package for my use cases.
+
+This library is not, in any way, affiliated or related to LiFi Labs, Inc. Use it at your own risk.
 
 - [LAN Protocol](https://github.com/LIFX/public-protocol)
 - [LAN Protocol Docs](https://github.com/LIFX/lifx-protocol-docs)
@@ -11,19 +18,15 @@ This library is not, in any way, affiliated or related to LiFi Labs, Inc.. Use i
 ## Installation
 
 ```sh
-$ npm install lifxware --save
+$ npm install @doubleedesign/lifxware
 ```
-
-## Usage
-
-The file `cli.ts` contains a working cli example.
 
 ### Client
 
 The library uses a client for network communication. This client handles communication with all lights in the network.
 
 ```js
-const Client = require('lifxware').Client;
+import { Client } from 'lifxware';
 const client = new Client();
 ```
 
@@ -31,7 +34,7 @@ The `Client` object is an EventEmitter and emmits events whenever any changes oc
 The client starts discovery of lights upon it's creation. If a new light is found the client emmits a `light-new` event. This event contains the light as an object on which methods can be called then:
 
 ```js
-const Client = require('lifxware').Client;
+import { Client } from 'lifxware';
 const client = new Client();
 
 client.on('light-new', (light) => {

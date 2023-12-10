@@ -1,7 +1,8 @@
 import * as dgram from 'dgram';
-import * as _ from 'lodash';
+import forEach from 'lodash/forEach';
+import find from 'lodash/find';
+import ldDefaults from 'lodash/defaults';
 import * as utils from './lib/utils';
-import { EventEmitter } from 'eventemitter3';
 import { logger } from './lib/logger';
 import { Light } from './light';
 import {
@@ -33,6 +34,7 @@ import {
 	ER_CLIENT_INVALID_ARGUMENT,
 	ER_CLIENT_LIGHT_NOT_FOUND
 } from './errors/clientErrors';
+import EventEmitter from "events";
 
 export const MINIMUM_PORT_NUMBER = 1;
 export const MAXIMUM_PORT_NUMBER = 65535;
@@ -179,7 +181,7 @@ export class Client extends EventEmitter {
 			resendMaxTimes: 3
 		};
 
-		const opts: ClientOptions = _.defaults(params, defaults);
+		const opts: ClientOptions = ldDefaults(params, defaults);
 
 		this.validateClientOptions(opts);
 
@@ -393,7 +395,7 @@ export class Client extends EventEmitter {
 
 	private sendBroadcastDiscoveryPacket(lights?: string[]) {
 		/** Sign flag on inactive lights */
-		_.forEach(this.devices, (light) => {
+		forEach(this.devices, (light) => {
 			if (this.devices[light.id].connectivity !== false) {
 				const diff = this._discoveryPacketSequence - light.discoveryPacketNumber;
 
@@ -664,14 +666,14 @@ export class Client extends EventEmitter {
 		const lights = [];
 
 		if (!status) {
-			_.forEach(this.devices, function(light) {
+			forEach(this.devices, function(light) {
 				lights.push(light);
 			});
 
 			return lights;
 		}
 
-		_.forEach(this.devices, (light) => {
+		forEach(this.devices, (light) => {
 			if (light.connectivity === status) {
 				lights.push(light);
 			}
@@ -693,20 +695,20 @@ export class Client extends EventEmitter {
 
 		/** Dots or colons is high likely an IP Address */
 		if (identifier.indexOf('.') >= 0 || identifier.indexOf(':') >= 0) {
-			light = _.find(this.devices, { address: identifier });
+			light = find(this.devices, { address: identifier });
 			if (light) {
 				return light;
 			}
 		}
 
 		/** Search id */
-		light = _.find(this.devices, { id: identifier });
+		light = find(this.devices, { id: identifier });
 		if (light) {
 			return light;
 		}
 
 		/** Search label */
-		light = _.find(this.devices, { label: identifier });
+		light = find(this.devices, { label: identifier });
 		if (light) {
 			return light;
 		}
