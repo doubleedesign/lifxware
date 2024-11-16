@@ -4,7 +4,7 @@ A Typescript implementation of the LIFX protocol forked from [Jorge Claro's lifx
 
 Differences from v0.1.20 of the original: 
 
-- Added `getGroup` method to get which group a given light is in
+- Added `getGroup` method to get which group a given light is in (EDIT: [This feature was merged](https://github.com/jorgeclaro/lifxware/pull/14) on November 16, 2024 - I just haven't updated my fork yet)
 - Updated dependencies
 - Compiled as ES module instead of CommonJS
 - Removed the CLI script, purely to simplify the package for my use cases.
